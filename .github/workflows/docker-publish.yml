@@ -61,6 +61,8 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
       - uses: actions/checkout@v2
+        with:
+         token: ${{ secrets.GHUB_TOKEN }}
       - run: |
           git config --global user.email ${{ github.actor }}
           git config --global user.name "${{ github.actor }}@noreply.com"
