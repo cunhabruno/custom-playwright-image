@@ -23,6 +23,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - run: |
+          git fetch --prune --unshallow --tags
+          echo exit code $?
+          git tag --list
 
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
@@ -66,6 +70,5 @@ jobs:
       - run: |
           git config --global user.email ${{ github.actor }}
           git config --global user.name "${{ github.actor }}@noreply.com"
-          git fetch
           git tag -a ${{ steps.version.outputs.IMAGE_TAG }} -m ${{ steps.version.outputs.IMAGE_TAG }}
           git push origin ${{ steps.version.outputs.IMAGE_TAG }}
